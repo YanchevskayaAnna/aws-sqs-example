@@ -30,17 +30,15 @@ public class QueueConsumerLambda implements RequestHandler<SQSEvent, String> {
     @Override
     public String handleRequest(SQSEvent event, Context context) {
         for (SQSMessage message : event.getRecords()) {
-
-               ObjectMapper mapper = new ObjectMapper();
-                S3Records s3Records  = null;
-                try {
-                    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-                    s3Records = mapper.readValue(message.getBody(), S3Records.class);
-                    for (S3File s3File:s3Records.getRecords()) {
-                        s3FileDao.createS3File(s3File);
-                    }
-                } catch (Exception e) {
+            try {
+                ObjectMapper mapper = new ObjectMapper();
+                mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+                S3Records s3Records = mapper.readValue(message.getBody(), S3Records.class);
+                for (S3File s3File : s3Records.getRecords()) {
+                    s3FileDao.createS3File(s3File);
                 }
+            } catch (Exception e) {
+            }
         }
         return "OK";
     }

@@ -12,6 +12,5 @@ import lombok.*;
 @JsonAutoDetect
 @JsonIgnoreProperties
 public class S3ResponseElements {
-   private String x;
-//    private String x-amz-id-2;   TODO
+    private String x;
 }

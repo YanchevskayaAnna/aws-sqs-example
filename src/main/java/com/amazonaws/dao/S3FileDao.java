@@ -16,9 +16,6 @@ public class S3FileDao {
     }
 
     public String createS3File(S3File s3File) {
-        if (s3File == null) {
-            throw new IllegalArgumentException("Message was null");
-        }
         int tries = 0;
         while (tries < 10) {
             try {
@@ -41,7 +38,7 @@ public class S3FileDao {
             }
         }
         throw new CouldNotCreateOrderException(
-                "Unable to generate unique order id after 10 tries");
+                "Unable to generate unique s3-file id after 10 tries");
     }
 
 }
