@@ -15,8 +15,9 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.amazonaws.model;
+package com.amazonaws.model.request;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import lombok.*;
 
 @Getter
@@ -24,10 +25,17 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class OrderFile {
+@JsonAutoDetect
+public class S3File {
 
+    private String eventVersion;
     private String eventSource;
     private String awsRegion;
     private String eventTime;
+    private String eventName;
 
+    private S3UserIdentity userIdentity;
+    private S3RequestParameters requestParameters;
+    private S3ResponseElements responseElements;
+    private S3Body S3;
 }
